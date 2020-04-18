@@ -3,7 +3,7 @@ package srpfacadelab;
 import java.util.List;
 import java.util.ArrayList;
 
-
+//RPGPlayer is our Facade
 public class RpgPlayer {
     public static final int MAX_CARRYING_CAPACITY = 1000;
 
@@ -25,6 +25,14 @@ public class RpgPlayer {
         this.inventory = new Inventory(gameEngine, this);
         carryingCapacity = MAX_CARRYING_CAPACITY;
     }
+
+    public int getCarryingCapacity() {
+        return carryingCapacity;
+    }
+    private void setCarryingCapacity(int carryingCapacity) {
+        this.carryingCapacity = carryingCapacity;
+    }
+    public List<Item> getInventory() {return inventory;}
 
     private void calculateStats() {
         for (Item i: inventory) {
