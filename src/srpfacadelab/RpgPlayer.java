@@ -3,7 +3,7 @@ package srpfacadelab;
 import java.util.List;
 import java.util.ArrayList;
 
-//RPGPlayer is our Facade
+
 public class RpgPlayer {
     public static final int MAX_CARRYING_CAPACITY = 1000;
 
@@ -22,41 +22,17 @@ public class RpgPlayer {
 
     public RpgPlayer(IGameEngine gameEngine) {
         this.gameEngine = gameEngine;
-        this.inventory = new Inventory(gameEngine, this);
+        inventory = new ArrayList<Item>();
         carryingCapacity = MAX_CARRYING_CAPACITY;
     }
 
-    public int getCarryingCapacity() {
-        return carryingCapacity;
-    }
-    private void setCarryingCapacity(int carryingCapacity) {
-        this.carryingCapacity = carryingCapacity;
-    }
-    public List<Item> getInventory() {return inventory;}
 
-    private void calculateStats() {
-        for (Item i: inventory) {
-            armour += i.getArmour();
-        }
+    public List<Item> getInventory(){
+        return inventory;
     }
 
-    public void takeDamage(int damage) {
-        if (damage < armour) {
-            gameEngine.playSpecialEffect("parry");
-        }
-
-        
-        int damageToDeal;
-
-        //for part 2... checks if capacity is less than half in which case less damage is taken
-        if (inventory.getCarryingCapacity() > (0.5 * inventory.MAX_CARRYING_CAPACITY))
-            damageToDeal = (damage * .75) - armour;
-        else
-            damageToDeal = damage - armour;
-
-        health -= damageToDeal;
-
-        gameEngine.playSpecialEffect("lots_of_gore");
+    public void addItemToInventory(Item item){
+        inventory.add(item);
     }
 
     public int getHealth() {
@@ -79,9 +55,15 @@ public class RpgPlayer {
         return armour;
     }
 
-    private void setArmour(int armour) {
+    public void setArmour(int armour) {
         this.armour = armour;
     }
 
+    public int getCarryingCapacity() {
+        return carryingCapacity;
+    }
 
+    private void setCarryingCapacity(int carryingCapacity) {
+        this.carryingCapacity = carryingCapacity;
+    }
 }
